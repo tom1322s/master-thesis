@@ -1,0 +1,9 @@
+bin/
+obj/
+*.depend
+*.layout
+*.cbp
+*.script
+/save01
+/proby
+/prog
