@@ -6,11 +6,11 @@
 #define NUM 0
 
 
-ControlObject::ControlObject() : dt(0.005), timeRes(0.02), tK(10) //0.02
+ControlObject::ControlObject() : dt(0.001), timeRes(0.004), tK(2) //0.02
 {
 #if NUM == 0
     //std::cout << "start contructing ControlObject" << std::endl;
-    initState = {0,0,-3.14/9,0};
+    initState = {0,0,-3.14/288,0};
     finState = {0,0,0,0};
 
 
@@ -67,30 +67,31 @@ ControlObject::ControlObject() : dt(0.005), timeRes(0.02), tK(10) //0.02
 
 
     // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    for(double val = -1; val<-0.1-0.00001; val+=0.02)
+    // !!!!!!
+    /*for(double val = -0.4; val<-0.1-0.00001; val+=0.01)
     {
         stateValues[0].push_back(val);
     }
-    for(double val = -0.1; val<-0.00001; val+=0.002)
+    for(double val = -0.1; val<-0.00001; val+=0.0025)
     {
         stateValues[0].push_back(val);
     }
-    for(double val = 0; val<0.1-0.00001; val+=0.002)
+    for(double val = 0; val<0.1-0.00001; val+=0.0025)
     {
         stateValues[0].push_back(val);
     }
-    for(double val = 0.1; val<=1.0009; val+=0.02)
+    for(double val = 0.1; val<=0.4009; val+=0.01)
     {
         stateValues[0].push_back(val);
     }
 
 
 
-    for(double val = -2; val<-0.3-0.0001; val+=0.1)
+    for(double val = -1.5; val<-0.5-0.0001; val+=0.1)
     {
         stateValues[1].push_back(val);
     }
-    for(double val = -0.3; val<-0.05-0.00001; val+=0.05)
+    for(double val = -0.5; val<-0.05-0.00001; val+=0.05)
     {
         stateValues[1].push_back(val);
     }
@@ -102,11 +103,11 @@ ControlObject::ControlObject() : dt(0.005), timeRes(0.02), tK(10) //0.02
     {
         stateValues[1].push_back(val);
     }
-    for(double val = 0.05; val<0.3-0.0001; val+=0.05)
+    for(double val = 0.05; val<0.5-0.0001; val+=0.05)
     {
         stateValues[1].push_back(val);
     }
-    for(double val = 0.3; val<=2.0009; val+=0.1)
+    for(double val = 0.5; val<=1.50009; val+=0.1)
     {
         stateValues[1].push_back(val);
     }
@@ -124,7 +125,7 @@ ControlObject::ControlObject() : dt(0.005), timeRes(0.02), tK(10) //0.02
     {
         stateValues[2].push_back(val);
     }
-    for(double val = 3.14/36; val<=3.1401/9; val+=3.14/144)
+    for(double val = 3.14/36; val<=3.140001/9; val+=3.14/144)
     {
         stateValues[2].push_back(val);
     }
@@ -132,29 +133,144 @@ ControlObject::ControlObject() : dt(0.005), timeRes(0.02), tK(10) //0.02
 
 
 
-    for(double val = -2; val<-0.101; val+=0.05)
+    for(double val = -2; val<-0.501; val+=0.05)
     {
         stateValues[3].push_back(val);
     }
-    for(double val = -0.1; val<-0.00001; val+=0.01)
+    for(double val = -0.5; val<-0.00001; val+=0.02)
     {
         stateValues[3].push_back(val);
     }
-    stateValues[3].push_back(-0.005);
+    stateValues[3].push_back(-0.01);
     stateValues[3].push_back(0);
-    stateValues[3].push_back(0.005);
-    for(double val = 0.01; val<0.10001; val+=0.01)
+    stateValues[3].push_back(0.01);
+    for(double val = 0.02; val<0.50001; val+=0.02)
     {
         stateValues[3].push_back(val);
     }
-    for(double val = 0.1; val<=2.0009; val+=0.05)
+    for(double val = 0.5; val<=2.0009; val+=0.05)
     {
         stateValues[3].push_back(val);
     }
 
 
     //for(double val = -50; val<=50.1; val+=2.5)
-    for(double val = -10; val<=10.1; val+=0.25)
+    for(double val = -10; val<=10.1; val+=0.1)
+    {
+        controlValues.push_back(val);
+    }*/
+
+
+    for(double val = -0.2; val<-0.1-0.00001; val+=0.005)
+    {
+        stateValues[0].push_back(val);
+    }
+    for(double val = -0.1; val<0-0.02-0.00001; val+=0.002)
+    {
+        stateValues[0].push_back(val);
+    }
+    for(double val = -0.02; val<-0.00001; val+=0.001)
+    {
+        stateValues[0].push_back(val);
+    }
+    for(double val = 0; val<0.02-0.00001; val+=0.001)
+    {
+        stateValues[0].push_back(val);
+    }
+    for(double val = 0.02; val<0.1-0.00001; val+=0.002)
+    {
+        stateValues[0].push_back(val);
+    }
+    for(double val = 0.1; val<=0.2009; val+=0.005)
+    {
+        stateValues[0].push_back(val);
+    }
+
+
+
+
+    for(double val = -2; val<-0.5-0.00001; val+=0.1)
+    {
+        stateValues[1].push_back(val);
+    }
+    for(double val = -0.5; val<-0.00001; val+=0.025)
+    {
+        stateValues[1].push_back(val);
+    }
+    stateValues[1].push_back(-0.0125);
+    stateValues[1].push_back(0);
+    stateValues[1].push_back(0.0125);
+    for(double val = 0.02; val<0.5-0.00001; val+=0.025)
+    {
+        stateValues[1].push_back(val);
+    }
+    for(double val = 0.5; val<=2.0001; val+=0.1)
+    {
+        stateValues[1].push_back(val);
+    }
+
+
+
+    for(double val = -3.14/36; val<-3.14/36-0.001; val+=3.14/144)
+    {
+        stateValues[2].push_back(val);
+    }
+    for(double val = -3.14/36; val<-0.001; val+=3.14/4200)
+    {
+        stateValues[2].push_back(val);
+    }
+    for(double val = 0; val<3.14/288-0.001; val+=3.14/4200)
+    {
+        stateValues[2].push_back(val);
+    }
+    //for(double val = 3.14/36; val<=3.140001/36; val+=3.14/144)
+    //{
+    //    stateValues[2].push_back(val);
+    //}
+
+
+
+
+
+    for(double val = -2; val<-0.5-0.00001; val+=0.1)
+    {
+        stateValues[3].push_back(val);
+    }
+    for(double val = -0.5; val<-0.00001; val+=0.025)
+    {
+        stateValues[3].push_back(val);
+    }
+    stateValues[3].push_back(-0.0125);
+    stateValues[3].push_back(0);
+    stateValues[3].push_back(0.0125);
+    for(double val = 0.02; val<0.5-0.00001; val+=0.025)
+    {
+        stateValues[3].push_back(val);
+    }
+    for(double val = 0.5; val<=2.0001; val+=0.1)
+    {
+        stateValues[3].push_back(val);
+    }
+
+
+
+    //for(double val = -50; val<=50.1; val+=2.5)
+    for(double val = -100; val<-5-0.001; val+=5)
+    {
+        controlValues.push_back(val);
+    }
+    for(double val = -5; val<-0.001; val+=0.5)
+    {
+        controlValues.push_back(val);
+    }
+    controlValues.push_back(-0.25);
+    controlValues.push_back(0);
+    controlValues.push_back(0.25);
+    for(double val = 0.5; val<5-0.001; val+=0.5)
+    {
+        controlValues.push_back(val);
+    }
+    for(double val = 5; val<=100.1; val+=5)
     {
         controlValues.push_back(val);
     }

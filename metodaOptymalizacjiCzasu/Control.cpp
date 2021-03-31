@@ -66,6 +66,7 @@ void Control::createTables()
     //printTables("baze");
 
     bool finish = false;
+    unsigned int localNumOfCountedPoint = 0;
     for(unsigned int counter = 0; !finish ; counter++)
     {
         finish = true;
@@ -77,7 +78,7 @@ void Control::createTables()
             for(size_t i = 0; i < controlObject.stateValues[0].size();i++)
             {
 #if THREAD == 0
-                auto cp = table[0][i];
+                auto& cp = table[0][i];
 #else
                 auto cp = safeTable.get(0,i);
 #endif // THREAD
@@ -144,6 +145,15 @@ void Control::createTables()
         std::cout<<numOfCountedPoint<<"/"<<controlObject.numOfAllPoint<<std::endl;
         std::cout<<(numOfCountedPoint*100.0)/controlObject.numOfAllPoint<<std::endl<<std::endl;
         //printTables(std::to_string(counter));
+
+        if(localNumOfCountedPoint==numOfCountedPoint)
+        {
+            finish = true;
+        }
+        else
+        {
+            localNumOfCountedPoint = numOfCountedPoint;
+        }
     }
 }
 
@@ -152,7 +162,7 @@ bool Control::miniTables(size_t tinx, const std::vector<double> x, size_t index,
     if(index == controlObject.stateValues.size())
     {
 #if THREAD == 0
-        auto cp = table[tinx][offset];
+        auto& cp = table[tinx][offset];
 #else
         auto cp = safeTable.get(tinx,offset);
 #endif // THREAD
@@ -412,6 +422,8 @@ void Control::simulate()
     std::vector<double> xId = controlObject.initState;
     std::vector<double> xSim = controlObject.initState;
 
+    std::vector<double> xT(xId.size()),xT2(xId.size()),xT3(xId.size());
+
     for(unsigned int i = 0; i<=controlObject.tK/controlObject.dt;i++)
     {
         double t = i*controlObject.dt;
@@ -444,7 +456,26 @@ void Control::simulate()
         for(const auto& xp:xSim)
             File << xp << ';';
         File << uSim << ';';
-        File << cSim << '\n';
+        File << cSim << ';';
+
+        //
+        if(t>=j*controlObject.timeRes){
+        for(size_t i = 0; i<xId.size(); i++)
+            xT[i] = controlObject.stateValues[i][findCoordinate(controlObject.stateValues[i],xId[i])];
+            std::vector<double> dxT = controlObject.diff(xT,uId);
+        xT2 = VecOpp::add(xT,VecOpp::mult(dxT,controlObject.timeRes));
+        for(size_t i = 0; i<xId.size(); i++)
+            xT3[i] = controlObject.stateValues[i][findCoordinate(controlObject.stateValues[i],xT2[i])];
+        }
+        for(const auto& xp:xT)
+            File << xp << ';';
+        for(const auto& xp:xT2)
+            File << xp << ';';
+        for(const auto& xp:xT3)
+            File << xp << ';';
+        File << '\n';
+
+        //
 
         std::vector<double> dx = controlObject.diff(xSim,uSim);
         xSim = VecOpp::add(xSim,VecOpp::mult(dx,controlObject.dt));
@@ -480,6 +511,7 @@ void Control::showGraf()
 
 void Control::printTables(std::string name)
 {
+    std::cout<<"print table"<<std::endl;
     std::fstream File;
     File.open( "C:\\chwilowy\\prog\\table"+name+".txt", std::ios::out );
     if( File.good() == false)
