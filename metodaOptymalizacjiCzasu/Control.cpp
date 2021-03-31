@@ -85,7 +85,7 @@ void Control::createTables()
                 if(!(cp.getAvaliable()))
                 {
                     const auto& x = controlObject.stateValues[0][i];
-                    std::vector xC = {x};
+                    std::vector<double> xC = {x};
                     if(!calculateOptimalControlValue(xC,cp))
                     {
                         finish = false;
@@ -194,7 +194,7 @@ bool Control::miniTables(size_t tinx, const std::vector<double> x, size_t index,
         unsigned int i = 0;
         for(const auto& xN: controlObject.stateValues[index])
         {
-            std::vector xC = x;
+            std::vector<double> xC = x;
             xC.push_back(xN);
             if(!miniTables(tinx,xC,index+1,offset+i*num))
             {

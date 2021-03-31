@@ -189,22 +189,22 @@ ControlObject::ControlObject() : dt(0.001), timeRes(0.004), tK(2) //0.02
 
 
 
-    for(double val = -2; val<-0.5-0.00001; val+=0.1)
-    {
-        stateValues[1].push_back(val);
-    }
-    for(double val = -0.5; val<-0.00001; val+=0.025)
+    //for(double val = -2; val<-0.5-0.00001; val+=0.05)
+    //{
+    //    stateValues[1].push_back(val);
+    //}
+    for(double val = -2; val<-0.00001; val+=0.025)
     {
         stateValues[1].push_back(val);
     }
     stateValues[1].push_back(-0.0125);
     stateValues[1].push_back(0);
     stateValues[1].push_back(0.0125);
-    for(double val = 0.02; val<0.5-0.00001; val+=0.025)
-    {
-        stateValues[1].push_back(val);
-    }
-    for(double val = 0.5; val<=2.0001; val+=0.1)
+    //for(double val = 0.02; val<0.5-0.00001; val+=0.025)
+    //{
+    //    stateValues[1].push_back(val);
+    //}
+    for(double val = 0.02; val<=2.0001; val+=0.025)
     {
         stateValues[1].push_back(val);
     }
@@ -232,7 +232,7 @@ ControlObject::ControlObject() : dt(0.001), timeRes(0.004), tK(2) //0.02
 
 
 
-    for(double val = -2; val<-0.5-0.00001; val+=0.1)
+    for(double val = -2; val<-0.5-0.00001; val+=0.05)
     {
         stateValues[3].push_back(val);
     }
@@ -247,7 +247,7 @@ ControlObject::ControlObject() : dt(0.001), timeRes(0.004), tK(2) //0.02
     {
         stateValues[3].push_back(val);
     }
-    for(double val = 0.5; val<=2.0001; val+=0.1)
+    for(double val = 0.5; val<=2.0001; val+=0.05)
     {
         stateValues[3].push_back(val);
     }
@@ -259,14 +259,14 @@ ControlObject::ControlObject() : dt(0.001), timeRes(0.004), tK(2) //0.02
     {
         controlValues.push_back(val);
     }
-    for(double val = -5; val<-0.001; val+=0.5)
+    for(double val = -5; val<-0.001; val+=2.5)
     {
         controlValues.push_back(val);
     }
-    controlValues.push_back(-0.25);
+    controlValues.push_back(-1.25);
     controlValues.push_back(0);
-    controlValues.push_back(0.25);
-    for(double val = 0.5; val<5-0.001; val+=0.5)
+    controlValues.push_back(1.25);
+    for(double val = 0.5; val<5-0.001; val+=2.5)
     {
         controlValues.push_back(val);
     }
