@@ -8,6 +8,8 @@ class ControlPointWraper
 {
     public:
         ControlPointWraper() {}
+        ~ControlPointWraper() {}
+
 
         ControlPoint get()
         {

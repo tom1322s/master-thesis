@@ -10,7 +10,7 @@ int main()
     Control control (co);
 
     control.createTables();
-    control.printTables("");
+    //control.printTables("");
     control.simulate();
     control.showGraf();
     return 0;

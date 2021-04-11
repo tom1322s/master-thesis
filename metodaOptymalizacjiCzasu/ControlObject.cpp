@@ -3,10 +3,32 @@
 #include "VecOpp.h"
 #include <iostream>
 
-#define NUM 0
+#define NUM 8
+/*
+#define EXP_1
+#ifdef EXP_1
 
+#define CODE_DEFINITION for(double val = -1.5; val<-0.5-0.0001; val+=0.1)\
+{\
+    stateValues[1].push_back(val);\
+}
 
-ControlObject::ControlObject() : dt(0.001), timeRes(0.004), tK(2) //0.02
+#define VELOCITY_SIZE 10
+#define VELOCITY_SIZE2 20
+#endif
+
+struct temp_t
+{
+    int velocity[VELOCITY_SIZE];
+
+    int velocity2[VELOCIT2Y_SIZE];
+    float u[VELOCITY_SIZE * VELOCITY_SIZE2];
+    float c[VELOCITY_SIZE * VELOCITY_SIZE2];
+
+};
+*/
+
+ControlObject::ControlObject() : dt(0.016), timeRes(0.016), tK(2) //0.02
 {
 #if NUM == 0
     //std::cout << "start contructing ControlObject" << std::endl;
@@ -536,6 +558,306 @@ ControlObject::ControlObject() : dt(0.001), timeRes(0.004), tK(2) //0.02
     {
         controlValues.push_back(val);
     }
+
+#elif NUM == 6
+
+    //std::cout << "start contructing ControlObject" << std::endl;
+    //initState = {0,-3.14/288,0};
+    initState = {0,-3.14,0};
+    finState = {0,0,0};
+
+
+    stateValues = std::vector<std::vector<double>> (initState.size());
+
+
+
+    for(double val = -1; val<-0.1-0.00001; val+=0.01)
+    {
+        stateValues[0].push_back(val);
+    }
+    for(double val = -0.1; val<0-0.02-0.00001; val+=0.002)
+    {
+        stateValues[0].push_back(val);
+    }
+    for(double val = -0.02; val<-0.00001; val+=0.001)
+    {
+        stateValues[0].push_back(val);
+    }
+    for(double val = 0; val<0.02-0.00001; val+=0.001)
+    {
+        stateValues[0].push_back(val);
+    }
+    for(double val = 0.02; val<0.1-0.00001; val+=0.002)
+    {
+        stateValues[0].push_back(val);
+    }
+    for(double val = 0.1; val<=1.009; val+=0.01)
+    {
+        stateValues[0].push_back(val);
+    }
+
+
+
+    for(double val = -3.14; val<-3.14/36-0.001; val+=3.14/144)
+    {
+        stateValues[1].push_back(val);
+    }
+    for(double val = -3.14/36; val<-0.001; val+=3.14/4200)
+    {
+        stateValues[1].push_back(val);
+    }
+    for(double val = 0; val<3.14/36-0.001; val+=3.14/4200)
+    {
+        stateValues[1].push_back(val);
+    }
+    //for(double val = 3.14/36; val<=3.140001/36; val+=3.14/144)
+    //{
+    //    stateValues[1].push_back(val);
+    //}
+
+
+
+
+    for(double val = -20; val<-5-0.00001; val+=5*((3.14/4200)/timeRes))
+    {
+        stateValues[2].push_back(val);
+    }
+    for(double val = -5; val<-0.00001; val+=(3.14/4200)/timeRes)
+    {
+        stateValues[2].push_back(val);
+    }
+    for(double val = 0; val<5-0.00001; val+=(3.14/4200)/timeRes)
+    {
+        stateValues[2].push_back(val);
+    }
+    for(double val = 5; val<=20.0001; val+=5*((3.14/4200)/timeRes))
+    {
+        stateValues[2].push_back(val);
+    }
+
+
+
+    //for(double val = -50; val<=50.1; val+=2.5)
+    for(double val = -5*(((3.14/4200)/timeRes)/timeRes); val<-0.001; val+=((3.14/4200)/timeRes)/timeRes)
+    {
+        controlValues.push_back(val);
+    }
+    for(double val = 0; val<=5*(((3.14/4200)/timeRes)/timeRes)+0.001; val+=((3.14/4200)/timeRes)/timeRes)
+    {
+        controlValues.push_back(val);
+    }
+
+#elif NUM == 7
+
+    //std::cout << "start contructing ControlObject" << std::endl;
+    //initState = {0,-3.14/288,0};
+    initState = {0,0,-3.14,0};
+    finState = {0,0,0,0};
+
+    double dx = 0.005;
+    double dv = dx/timeRes;
+    double da = 3.14/2100;
+    double dom = da/timeRes;
+    double du = dv/timeRes;
+
+
+    stateValues = std::vector<std::vector<double>> (initState.size());
+
+
+
+
+    for(double val = -0.5; val<-50*dx-0.00001; val+=5*dx)
+    {
+        stateValues[0].push_back(val);
+    }
+    for(double val = -50*dx; val<-0.00001; val+=dx)
+    {
+        stateValues[0].push_back(val);
+    }
+    for(double val = 0; val<50*dx-0.00001; val+=dx)
+    {
+        stateValues[0].push_back(val);
+    }
+    for(double val = 50*dx; val<=0.509; val+=5*dx)
+    {
+        stateValues[0].push_back(val);
+    }
+
+
+    for(double val = -20; val<-20*dv-0.00001; val+=4*dv)
+    {
+        stateValues[1].push_back(val);
+    }
+    for(double val = -20*dv; val<-0.00001; val+=dv)
+    {
+        stateValues[1].push_back(val);
+    }
+    for(double val = 0; val<20*dv-0.00001; val+=dv)
+    {
+        stateValues[1].push_back(val);
+    }
+    for(double val = 20*dv; val<=20.0001; val+=4*dv)
+    {
+        stateValues[1].push_back(val);
+    }
+
+
+
+    for(double val = -3.14; val<-3.14/36-0.001; val+=5*da)
+    {
+        stateValues[2].push_back(val);
+    }
+    for(double val = -3.14/36; val<-0.001; val+=da)
+    {
+        stateValues[2].push_back(val);
+    }
+    for(double val = 0; val<3.14/36-0.001; val+=da)
+    {
+        stateValues[2].push_back(val);
+    }
+    //for(double val = 3.14/36; val<=3.140001/36; val+=3.14/144)
+    //{
+    //    stateValues[1].push_back(val);
+    //}
+
+
+
+
+    for(double val = -20; val<-5-0.00001; val+=5*dom)
+    {
+        stateValues[3].push_back(val);
+    }
+    for(double val = -5; val<-0.00001; val+=dom)
+    {
+        stateValues[3].push_back(val);
+    }
+    for(double val = 0; val<5-0.00001; val+=dom)
+    {
+        stateValues[3].push_back(val);
+    }
+    for(double val = 5; val<=20.0001; val+=5*dom)
+    {
+        stateValues[3].push_back(val);
+    }
+
+
+
+    //for(double val = -50; val<=50.1; val+=2.5)
+    for(double val = -5*du; val<-0.001; val+=du)
+    {
+        controlValues.push_back(val);
+    }
+    for(double val = 0; val<=5*du+0.001; val+=du)
+    {
+        controlValues.push_back(val);
+    }
+
+
+#elif NUM == 8
+
+    //std::cout << "start contructing ControlObject" << std::endl;
+    //initState = {0,-3.14/288,0};
+    initState = {0,0,-3.14,0};
+    finState = {0,0,0,0};
+
+    double dx = 0.001;
+    double dv = dx/timeRes;
+    double da = 3.14/2100;
+    double dom = da/timeRes;
+    double du = dom/timeRes;
+
+
+    stateValues = std::vector<std::vector<double>> (initState.size());
+
+
+
+
+    for(double val = -0.3; val<-50*dx-0.00001; val+=5*dx)
+    {
+        stateValues[0].push_back(val);
+    }
+    for(double val = -50*dx; val<-0.00001; val+=dx)
+    {
+        stateValues[0].push_back(val);
+    }
+    for(double val = 0; val<50*dx-0.00001; val+=dx)
+    {
+        stateValues[0].push_back(val);
+    }
+    for(double val = 50*dx; val<=1.0009; val+=5*dx)
+    {
+        stateValues[0].push_back(val);
+    }
+
+
+    for(double val = -4; val<-10*dv-0.00001; val+=4*dv)
+    {
+        stateValues[1].push_back(val);
+    }
+    for(double val = -20*dv; val<-0.00001; val+=dv)
+    {
+        stateValues[1].push_back(val);
+    }
+    for(double val = 0; val<20*dv-0.00001; val+=dv)
+    {
+        stateValues[1].push_back(val);
+    }
+    for(double val = 10*dv; val<=4.0001; val+=4*dv)
+    {
+        stateValues[1].push_back(val);
+    }
+
+
+
+    for(double val = -3.14; val<-3.14/36-0.001; val+=5*da)
+    {
+        stateValues[2].push_back(val);
+    }
+    for(double val = -3.14/36; val<-0.001; val+=da)
+    {
+        stateValues[2].push_back(val);
+    }
+    for(double val = 0; val<3.14/9-0.001; val+=da)
+    {
+        stateValues[2].push_back(val);
+    }
+    //for(double val = 3.14/36; val<=3.140001/36; val+=3.14/144)
+    //{
+    //    stateValues[1].push_back(val);
+    //}
+
+
+
+
+    //for(double val = -7; val<-3.5-0.00001; val+=10*dom)
+    //{
+    //    stateValues[3].push_back(val);
+    //}
+    //for(double val = -3.5; val<-0.00001; val+=dom)
+    for(double val = -1; val<-0.00001; val+=dom)
+    {
+        stateValues[3].push_back(val);
+    }
+    for(double val = 0; val<3.5-0.00001; val+=dom)
+    {
+        stateValues[3].push_back(val);
+    }
+    for(double val = 3.5; val<=5.0001; val+=10*dom)
+    {
+        stateValues[3].push_back(val);
+    }
+
+
+
+    //for(double val = -50; val<=50.1; val+=2.5)
+    for(double val = -2*du; val<-0.001; val+=du)
+    {
+        controlValues.push_back(val);
+    }
+    for(double val = 0; val<=2*du+0.001; val+=du)
+    {
+        controlValues.push_back(val);
+    }
 #endif // NUM
 
 
@@ -545,6 +867,8 @@ ControlObject::ControlObject() : dt(0.001), timeRes(0.004), tK(2) //0.02
         numOfAllPoint *= v.size();
     }
 
+
+    std::cout << numOfAllPoint << std::endl;
     //std::cout << "contructed ControlObject" << std::endl;
 
 }
@@ -585,6 +909,26 @@ std::vector<double> ControlObject::diff (const std::vector<double>& x, const dou
     dx[1] = u;
     dx[2] = x[3];
     dx[3] = u;
+
+#elif NUM == 6
+
+    dx[0] = u*timeRes;
+    dx[1] = x[2];
+    dx[2] = -1.5 * u * cos(x[1]) + sin(x[1]);
+
+#elif NUM == 7
+
+    dx[0] = x[1];
+    dx[1] = u-(5*312.5/20)*x[1];
+    dx[2] = x[3];
+    dx[3] = -1.5 * u * cos(x[2]) + sin(x[2]);
+
+#elif NUM == 8
+
+    dx[0] = x[1];
+    dx[1] = u-(2.5/20)*x[1];
+    dx[2] = x[3];
+    dx[3] = -1.5 * dx[1] * cos(x[2]) + sin(x[2]);
 
 #endif // NUM
 

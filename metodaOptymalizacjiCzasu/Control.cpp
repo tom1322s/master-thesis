@@ -65,6 +65,8 @@ void Control::createTables()
     setFinZeroCost();
     //printTables("baze");
 
+    std::cout<<"success alloc"<<std::endl;
+
     bool finish = false;
     unsigned int localNumOfCountedPoint = 0;
     for(unsigned int counter = 0; !finish ; counter++)
@@ -509,7 +511,8 @@ void Control::showGraf()
     system(str.c_str());
 }
 
-void Control::printTables(std::string name)
+void Control::printTables(std::string name) //float binarnie
+// zrobic strukture w ktroej jest x0 x1 x2 x3 plus u i c i zapisywac binarnie ca³a t¹ strukture
 {
     std::cout<<"print table"<<std::endl;
     std::fstream File;
@@ -539,6 +542,7 @@ void Control::printTables(std::string name)
         for(unsigned int j = 0; j<controlObject.stateValues[0].size();j++)
         {
             const auto& x0 = controlObject.stateValues[0][j];
+            std::cout<<j*100.0/controlObject.stateValues[0].size()<<std::endl;
 
             std::vector<int> counter (controlObject.initState.size()-1,0);
             counter[counter.size()-1] = -1;
