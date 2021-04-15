@@ -772,7 +772,7 @@ ControlObject::ControlObject() : dt(0.016), timeRes(0.016), tK(2) //0.02
 
 
 
-    for(double val = -0.3; val<-50*dx-0.00001; val+=5*dx)
+    for(double val = -0.25; val<-50*dx-0.00001; val+=5*dx)
     {
         stateValues[0].push_back(val);
     }
@@ -790,19 +790,19 @@ ControlObject::ControlObject() : dt(0.016), timeRes(0.016), tK(2) //0.02
     }
 
 
-    for(double val = -4; val<-10*dv-0.00001; val+=4*dv)
+    //for(double val = -3.5; val<-10*dv-0.00001; val+=4*dv)
+    //{
+    //    stateValues[1].push_back(val);
+    //}
+    for(double val = -3.5; val<-0.00001; val+=dv)
     {
         stateValues[1].push_back(val);
     }
-    for(double val = -20*dv; val<-0.00001; val+=dv)
-    {
-        stateValues[1].push_back(val);
-    }
-    for(double val = 0; val<20*dv-0.00001; val+=dv)
-    {
-        stateValues[1].push_back(val);
-    }
-    for(double val = 10*dv; val<=4.0001; val+=4*dv)
+    //for(double val = 0; val<20*dv-0.00001; val+=dv)
+    //{
+    //    stateValues[1].push_back(val);
+    //}
+    for(double val = 0; val<=3.5001; val+=dv)
     {
         stateValues[1].push_back(val);
     }

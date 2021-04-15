@@ -221,7 +221,7 @@ bool Control::calculateOptimalControlValue(const std::vector<double>& x,ControlP
         ControlPoint next = findNearestPoint(xNext,distance);
         if(next.getAvaliable())
         {
-            double cost = next.getCost()+1;
+            auto cost = next.getCost()+1;
 
             bool isEnd;
             if(cost>globalCounter)
@@ -418,7 +418,7 @@ void Control::simulate()
     }
 
     double uIdDysk=0, uId = 0, uSim = 0;
-    double cIdDysk=0, cId = 0, cSim = 0;
+    float cIdDysk=0, cId = 0, cSim = 0;
     unsigned int j = 0;
     std::vector<double> xIdDysk = controlObject.initState;
     std::vector<double> xId = controlObject.initState;
@@ -458,10 +458,10 @@ void Control::simulate()
         for(const auto& xp:xSim)
             File << xp << ';';
         File << uSim << ';';
-        File << cSim << ';';
+        File << cSim << '\n';
 
         //
-        if(t>=j*controlObject.timeRes){
+       /* if(t>=j*controlObject.timeRes){
         for(size_t i = 0; i<xId.size(); i++)
             xT[i] = controlObject.stateValues[i][findCoordinate(controlObject.stateValues[i],xId[i])];
             std::vector<double> dxT = controlObject.diff(xT,uId);
@@ -476,7 +476,7 @@ void Control::simulate()
         for(const auto& xp:xT3)
             File << xp << ';';
         File << '\n';
-
+*/
         //
 
         std::vector<double> dx = controlObject.diff(xSim,uSim);
