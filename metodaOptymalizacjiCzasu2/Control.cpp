@@ -77,7 +77,7 @@ void Control::createTables()
             std::vector<ControlPoint> value;
             for(const auto& x: controlObject.stateValues[0])
             {
-                std::vector xC = {x};
+                std::vector<double> xC = {x};
                 ControlPoint opt = findNearestPoint(xC);
                 if(!opt.getAvaliable())
                 {
@@ -151,7 +151,7 @@ std::vector<ControlPoint> Control::createMiniTables(const std::vector<double> x,
         std::vector<ControlPoint> values;
         for(const auto& xN: controlObject.stateValues[index])
         {
-            std::vector xC = x;
+            std::vector<double> xC = x;
             xC.push_back(xN);
             std::vector<ControlPoint> temp = std::move(createMiniTables(xC,index+1));
             values.insert(values.end(),temp.begin(),temp.end());
