@@ -21,7 +21,7 @@ class ControlObject
         std::vector<double> controlValues;
         const double timeRes;
 
-        unsigned long long numOfAllPoint;
+        //unsigned long long numOfAllPoint;
 
 
     protected:

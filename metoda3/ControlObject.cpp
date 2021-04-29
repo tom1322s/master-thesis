@@ -28,7 +28,7 @@ struct temp_t
 };
 */
 
-ControlObject::ControlObject() : dt(0.016), timeRes(0.016), tK(2) //0.02
+ControlObject::ControlObject() : dt(0.016), tK(2) , timeRes(0.016) //0.02
 {
 #if NUM == 0
     //std::cout << "start contructing ControlObject" << std::endl;
@@ -325,17 +325,17 @@ ControlObject::ControlObject() : dt(0.016), timeRes(0.016), tK(2) //0.02
     stateValues = std::vector<std::vector<double>> (initState.size());
     //std::cout<<stateValues.size()<<std::endl;
 
-    for(double val = -12; val<=12.0009; val+=0.1)
+    for(double val = -10; val<=10.0009; val+=1)
     //for(double val = -0.5; val<=0.5; val+=0.05)
     {
         stateValues[0].push_back(val);
     }
-    for(double val = -20; val<=20.0009; val+=0.1)
+    for(double val = -10; val<=10.0009; val+=1)
     //for(double val = -0.5; val<=0.5; val+=0.05)
     {
         stateValues[1].push_back(val);
     }
-    for(double val = -10; val<=10.001; val+=0.1)
+    for(double val = -1; val<=1.001; val+=1.0)
     {
         controlValues.push_back(val);
     }
@@ -861,7 +861,7 @@ ControlObject::ControlObject() : dt(0.016), timeRes(0.016), tK(2) //0.02
 #endif // NUM
 
 
-    numOfAllPoint = 1;
+   /* numOfAllPoint = 1;
     for(const auto& v:stateValues)
     {
         numOfAllPoint *= v.size();
@@ -869,7 +869,7 @@ ControlObject::ControlObject() : dt(0.016), timeRes(0.016), tK(2) //0.02
 
 
     std::cout << numOfAllPoint << std::endl;
-    //std::cout << "contructed ControlObject" << std::endl;
+    //std::cout << "contructed ControlObject" << std::endl;*/
 
 }
 

@@ -6,6 +6,8 @@ obj/
 *.script
 /save01
 /save02
+/saveGit
 /proby
 /prog
 /doks
+*.data
