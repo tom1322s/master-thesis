@@ -28,7 +28,7 @@ struct temp_t
 };
 */
 
-ControlObject::ControlObject() : dt(0.016), tK(2) , timeRes(0.016) //0.02
+ControlObject::ControlObject() : dt(0.016), tK(4) , timeRes(0.016) //0.02
 {
 #if NUM == 0
     //std::cout << "start contructing ControlObject" << std::endl;
@@ -756,15 +756,22 @@ ControlObject::ControlObject() : dt(0.016), tK(2) , timeRes(0.016) //0.02
 #elif NUM == 8
 
     //std::cout << "start contructing ControlObject" << std::endl;
-    //initState = {0,-3.14/288,0};
     initState = {0,0,-3.14,0};
+    //initState = {0.1,-1,-0.1,1.4};
     finState = {0,0,0,0};
 
-    double dx = 0.003;
-    double dv = (dx/timeRes)/1.0;
-    double da = 3.14/1050;
-    double dom = da/timeRes;
+    //plus u
+    double dx = 0.003*1;
+    double dv = (dx/timeRes)/4.0;
+    double da = (3.14/1050)*1;
+    double dom = (da/timeRes)/1;
     double du = dom/timeRes;
+
+    /*double dx = 0.003/4;
+    double dv = (dx/timeRes)/1.0;
+    double da = (3.14/1050)/4.0;
+    double dom = da/timeRes;
+    double du = dom/timeRes;*/
 
 
     stateValues = std::vector<std::vector<double>> (initState.size());
@@ -772,19 +779,13 @@ ControlObject::ControlObject() : dt(0.016), tK(2) , timeRes(0.016) //0.02
 
 
 
-    for(double val = -0.25; val<-50*dx-0.00001; val+=5*dx)
+
+    for(double val = -0.6; val<-0.00001; val+=dx)
     {
         stateValues[0].push_back(val);
     }
-    for(double val = -50*dx; val<-0.00001; val+=dx)
-    {
-        stateValues[0].push_back(val);
-    }
-    for(double val = 0; val<50*dx-0.00001; val+=dx)
-    {
-        stateValues[0].push_back(val);
-    }
-    for(double val = 50*dx; val<=1.0009; val+=5*dx)
+
+    for(double val = 0; val<=0.6009; val+=dx)
     {
         stateValues[0].push_back(val);
     }
@@ -794,7 +795,7 @@ ControlObject::ControlObject() : dt(0.016), tK(2) , timeRes(0.016) //0.02
     //{
     //    stateValues[1].push_back(val);
     //}
-    for(double val = -3.5; val<-0.00001; val+=dv)
+    for(double val = -1.7; val<-0.00001; val+=dv)
     {
         stateValues[1].push_back(val);
     }
@@ -802,14 +803,14 @@ ControlObject::ControlObject() : dt(0.016), tK(2) , timeRes(0.016) //0.02
     //{
     //    stateValues[1].push_back(val);
     //}
-    for(double val = 0; val<=3.5001; val+=dv)
+    for(double val = 0; val<=1.7001; val+=dv)
     {
         stateValues[1].push_back(val);
     }
 
 
 
-    for(double val = -3.14; val<-3.14/36-0.001; val+=5*da)
+    for(double val = -3.14; val<-3.14/36-0.001; val+=da)
     {
         stateValues[2].push_back(val);
     }
@@ -817,24 +818,24 @@ ControlObject::ControlObject() : dt(0.016), tK(2) , timeRes(0.016) //0.02
     {
         stateValues[2].push_back(val);
     }
-    for(double val = 0; val<3.14/9-0.001; val+=da)
+    for(double val = 0; val<3.14/36-0.001; val+=da)
     {
         stateValues[2].push_back(val);
     }
-    //for(double val = 3.14/36; val<=3.140001/36; val+=3.14/144)
-    //{
-    //    stateValues[1].push_back(val);
-    //}
+    for(double val = 3.14/36; val<=3.140001; val+=da)
+    {
+        stateValues[2].push_back(val);
+    }
 
 
 
 
-    //for(double val = -7; val<-3.5-0.00001; val+=10*dom)
-    //{
-    //    stateValues[3].push_back(val);
-    //}
+    for(double val = -4.0; val<-3.5-0.00001; val+=4*dom)
+    {
+        stateValues[3].push_back(val);
+    }
     //for(double val = -3.5; val<-0.00001; val+=dom)
-    for(double val = -1; val<-0.00001; val+=dom)
+    for(double val = -3.5; val<-0.00001; val+=dom)
     {
         stateValues[3].push_back(val);
     }
@@ -842,7 +843,7 @@ ControlObject::ControlObject() : dt(0.016), tK(2) , timeRes(0.016) //0.02
     {
         stateValues[3].push_back(val);
     }
-    for(double val = 3.5; val<=5.0001; val+=10*dom)
+    for(double val = 3.5; val<=4.0001; val+=4*dom)
     {
         stateValues[3].push_back(val);
     }
@@ -850,14 +851,73 @@ ControlObject::ControlObject() : dt(0.016), tK(2) , timeRes(0.016) //0.02
 
 
     //for(double val = -50; val<=50.1; val+=2.5)
-    for(double val = -1*du; val<-0.001; val+=du)
+    /*for(double val = -1*du; val<-0.001; val+=du)
     {
         controlValues.push_back(val);
     }
     for(double val = 0; val<=1*du+0.001; val+=du)
     {
         controlValues.push_back(val);
+    }*/
+    controlValues = {-du,0,du};
+
+    /*for(double val = -0.1; val<-0.00001; val+=dx)
+    {
+        stateValues[0].push_back(val);
     }
+    for(double val = 0; val<0.1+0.00001; val+=dx)
+    {
+        stateValues[0].push_back(val);
+    }
+
+
+
+
+    for(double val = -1.5; val<-0.00001; val+=dv)
+    {
+        stateValues[1].push_back(val);
+    }
+    for(double val = 0; val<=1.5001; val+=dv)
+    {
+        stateValues[1].push_back(val);
+    }
+
+
+
+
+    for(double val = -3.14/18; val<-0.001; val+=da)
+    {
+        stateValues[2].push_back(val);
+    }
+    for(double val = 0; val<=3.140001/18; val+=da)
+    {
+        stateValues[2].push_back(val);
+    }
+
+
+
+
+
+    for(double val = -2; val<-0.00001; val+=dom)
+    {
+        stateValues[3].push_back(val);
+    }
+    for(double val = 0; val<=2.0001; val+=dom)
+    {
+        stateValues[3].push_back(val);
+    }
+
+
+
+    //for(double val = -50; val<=50.1; val+=2.5)
+    for(double val = -4*du; val<-0.001; val+=du)
+    {
+        controlValues.push_back(val);
+    }
+    for(double val = 0; val<=4*du+0.001; val+=du)
+    {
+        controlValues.push_back(val);
+    }*/
 #endif // NUM
 
 
@@ -926,9 +986,10 @@ std::vector<double> ControlObject::diff (const std::vector<double>& x, const dou
 #elif NUM == 8
 
     dx[0] = x[1];
-    dx[1] = u-(2.5/20)*x[1];
+    //dx[1] = u-(2.5/20)*x[1];
+    dx[1] = u-(5.5)*x[1];
     dx[2] = x[3];
-    dx[3] = -1.5 * dx[1] * cos(x[2]) + sin(x[2]);
+    dx[3] = -1.5 * dx[1] * cos(x[2]) + sin(x[2]) - 0.08*x[3];
 
 #endif // NUM
 
@@ -937,6 +998,14 @@ std::vector<double> ControlObject::diff (const std::vector<double>& x, const dou
 
 std::vector<double> ControlObject::xNext (const std::vector<double>& x, const double u, const double dt) const
 {
+    #if NUM == 8
+    std::vector<double> xN = VecOpp::add(x, VecOpp::mult(diff(x,u),dt));
+    if(xN[2]>3.14) xN[2]-=6.28;
+    if(xN[2]<-3.14) xN[2]+=6.28;
+    return xN;
+
+    #else
     return VecOpp::add(x, VecOpp::mult(diff(x,u),dt));
+    #endif // NUM
 }
 
